@@ -6,13 +6,15 @@ const createuser = (name, role) => {
   const base = { name };
 
   const roles = {
-    admin: () => ({role: 'Admin', permissions: 'all'}),
-    guest: () => ({role: 'Guest', permissions: 'read-only'}),
-  }
+    admin: () => ({ role: 'Admin', permissions: 'all' }),
+    guest: () => ({ role: 'Guest', permissions: 'read-only' }),
+  };
 
-//   return {...base, ...(roles[role]?.() || {})}
-  return {...base, ...(roles[role] && roles[role]?.())}
+  //   return {...base, ...(roles[role]?.() || {})}
+  return Object.freeze({
+    ...base,
+    ...(roles[role] && roles[role]?.()),
+  });
 };
-
 
 console.log(createuser('Kalidass', 'admin'));
